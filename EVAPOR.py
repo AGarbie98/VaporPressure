@@ -1,3 +1,4 @@
+#CMD pip 
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -26,11 +27,10 @@ ambient_pressures = [10, 100, 1000]  # 10 Pa, 100 Pa, 1000 Pa
 plt.figure(figsize=(12, 8))
 
 for element, coeff in coefficients.items():
-    # Extract coefficients
     A, B, C, D = coeff
 
     logP_atm = A + B / T_Kelvin_extended + C * np.log10(np.maximum(T_Kelvin_extended, 1)) + D * T_Kelvin_extended**3
-    logP_atm[np.isinf(logP_atm) | np.isnan(logP_atm)] = -20  # Replace Inf or NaN values
+    logP_atm[np.isinf(logP_atm) | np.isnan(logP_atm)] = -20  
 
     P_Pa = 10**logP_atm * 101325
     P_Pa[P_Pa < 1e-20] = 1e-20  # Cap negligible values
